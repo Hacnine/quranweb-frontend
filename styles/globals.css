@@ -6,4 +6,19 @@
   :root {
     --font-size-ayah: 1.5rem;
   }
+
+  body {
+    @apply bg-gray-50 text-gray-900;
+  }
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  .font-arabic {
+    font-family: "Amiri", "Scheherazade New", serif;
+  }
 }
