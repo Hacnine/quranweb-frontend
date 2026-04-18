@@ -2,7 +2,6 @@ import path from "path";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  distDir: process.env.NETLIFY ? ".netlify/output" : ".next",
   turbopack: {
     root: path.resolve(__dirname),
   },
