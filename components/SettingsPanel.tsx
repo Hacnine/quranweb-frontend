@@ -32,20 +32,20 @@ export default function SettingsPanel() {
 
       {/* Panel */}
       <aside
-        className={`fixed right-0 top-0 z-50 h-full w-80 max-w-[85vw] transform bg-white shadow-2xl transition-transform duration-300 ${
+        className={`fixed right-0 top-0 z-50 h-full w-80 max-w-[85vw] transform bg-dark-card shadow-2xl transition-transform duration-300 ${
           sidebarOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div className="flex items-center justify-between border-b px-5 py-4">
-          <h2 className="text-lg font-semibold text-gray-800">Settings</h2>
+        <div className="flex items-center justify-between border-b border-dark-border px-5 py-4">
+          <h2 className="text-lg font-semibold text-gray-100">Settings</h2>
           <button
             onClick={() => dispatch(closeSidebar())}
-            className="rounded-full p-1 hover:bg-gray-100 transition-colors"
+            className="rounded-full p-1 hover:bg-white/10 transition-colors"
             aria-label="Close settings"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 text-gray-500"
+              className="h-5 w-5 text-gray-400"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -63,13 +63,13 @@ export default function SettingsPanel() {
         <div className="space-y-6 overflow-y-auto p-5" style={{ height: "calc(100% - 65px)" }}>
           {/* Arabic Font Family */}
           <div>
-            <label className="mb-2 block text-sm font-medium text-gray-700">
+            <label className="mb-2 block text-sm font-medium text-gray-300">
               Arabic Font
             </label>
             <select
               value={arabicFontFamily}
               onChange={(e) => dispatch(setArabicFontFamily(e.target.value))}
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+              className="w-full rounded-lg border border-dark-border bg-dark-navy px-3 py-2 text-sm text-gray-100 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
             >
               {ARABIC_FONTS.map((f) => (
                 <option key={f.value} value={f.value}>
@@ -78,7 +78,7 @@ export default function SettingsPanel() {
               ))}
             </select>
             <p
-              className="mt-2 text-right text-gray-600"
+              className="mt-2 text-right text-gray-300"
               style={{ fontFamily: arabicFontFamily, fontSize: "20px" }}
             >
               بِسْمِ ٱللَّهِ
@@ -87,7 +87,7 @@ export default function SettingsPanel() {
 
           {/* Arabic Font Size */}
           <div>
-            <label className="mb-2 flex items-center justify-between text-sm font-medium text-gray-700">
+            <label className="mb-2 flex items-center justify-between text-sm font-medium text-gray-300">
               <span>Arabic Font Size</span>
               <span className="text-emerald-600 font-semibold">{arabicFontSize}px</span>
             </label>
@@ -110,7 +110,7 @@ export default function SettingsPanel() {
 
           {/* Translation Font Size */}
           <div>
-            <label className="mb-2 flex items-center justify-between text-sm font-medium text-gray-700">
+            <label className="mb-2 flex items-center justify-between text-sm font-medium text-gray-300">
               <span>Translation Font Size</span>
               <span className="text-emerald-600 font-semibold">{translationFontSize}px</span>
             </label>
@@ -133,7 +133,7 @@ export default function SettingsPanel() {
 
           {/* Show Translation */}
           <div className="flex items-center justify-between">
-            <span className="text-sm font-medium text-gray-700">
+            <span className="text-sm font-medium text-gray-300">
               Show Translation
             </span>
             <button

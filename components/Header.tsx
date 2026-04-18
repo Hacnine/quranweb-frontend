@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useAppDispatch } from "@/store/hooks";
 import { toggleSidebar } from "@/store/settingsSlice";
@@ -8,29 +9,35 @@ export default function Header() {
   const dispatch = useAppDispatch();
 
   return (
-    <header className="sticky top-0 z-30 bg-emerald-700 text-white shadow-md">
+    <header className="sticky top-0 z-30 bg-dark-card border-b border-dark-border text-white shadow-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
         <Link href="/" className="flex items-center gap-2">
-          <span className="text-2xl">📖</span>
+          <Image
+            src="/Qur'an.svg"
+            alt="Quran icon"
+            width={36}
+            height={36}
+            className="h-12 w-12 object-contain"
+          />
           <span className="text-xl font-bold tracking-tight">QuranWeb</span>
         </Link>
 
         <nav className="flex items-center gap-4">
           <Link
             href="/"
-            className="hidden sm:inline-block rounded px-3 py-1.5 text-sm font-medium hover:bg-emerald-600 transition-colors"
+            className="hidden sm:inline-block rounded px-3 py-1.5 text-sm font-medium text-gray-300 hover:bg-white/10 hover:text-white transition-colors"
           >
             Surahs
           </Link>
           <Link
             href="/search"
-            className="hidden sm:inline-block rounded px-3 py-1.5 text-sm font-medium hover:bg-emerald-600 transition-colors"
+            className="hidden sm:inline-block rounded px-3 py-1.5 text-sm font-medium text-gray-300 hover:bg-white/10 hover:text-white transition-colors"
           >
             Search
           </Link>
           <button
             onClick={() => dispatch(toggleSidebar())}
-            className="rounded p-2 hover:bg-emerald-600 transition-colors"
+            className="rounded p-2 hover:bg-white/10 transition-colors"
             aria-label="Open settings"
           >
             <svg

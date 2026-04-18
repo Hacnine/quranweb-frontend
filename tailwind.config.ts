@@ -8,6 +8,11 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        "dark-navy": "#020817",
+        "dark-card": "#0f1729",
+        "dark-border": "#1e293b",
+      },
       fontFamily: {
         arabic: ["Amiri", "serif"],
       },

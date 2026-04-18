@@ -25,18 +25,18 @@ export default function AyahList({ verses }: { verses: Verse[] }) {
       {verses.map((v) => (
         <div
           key={v.key}
-          className="rounded-xl border border-gray-200 bg-white p-5 transition-colors hover:border-emerald-200"
+          className="rounded-xl border border-dark-border bg-dark-card p-5 transition-colors hover:border-emerald-500/50"
         >
           {/* Verse number badge */}
           <div className="mb-3 flex items-center gap-2">
-            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-emerald-50 text-xs font-bold text-emerald-700">
+            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-emerald-600/20 text-xs font-bold text-emerald-400">
               {v.number}
             </span>
           </div>
 
           {/* Arabic text */}
           <p
-            className="leading-loose text-gray-800"
+            className="leading-loose text-gray-100"
             dir="rtl"
             style={{
               fontFamily: `"${arabicFontFamily}", serif`,
@@ -50,7 +50,7 @@ export default function AyahList({ verses }: { verses: Verse[] }) {
           {/* Translation */}
           {showTranslation && v.translation && (
             <p
-              className="mt-3 border-t border-gray-100 pt-3 text-gray-600"
+              className="mt-3 border-t border-dark-border pt-3 text-gray-400"
               style={{ fontSize: `${translationFontSize}px` }}
             >
               {v.translation}

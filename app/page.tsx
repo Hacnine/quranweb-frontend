@@ -9,15 +9,15 @@ export default async function Home() {
     <main className="mx-auto max-w-4xl px-4 py-6">
       {/* Hero */}
       <section className="mb-8 text-center">
-        <h1 className="text-3xl font-bold text-gray-800 sm:text-4xl">
+        <h1 className="text-3xl font-bold text-white sm:text-4xl">
           The Holy Quran
         </h1>
-        <p className="mt-2 text-gray-500">
+        <p className="mt-2 text-gray-400">
           Read, explore, and search the 114 Surahs of the Quran
         </p>
         <Link
           href="/search"
-          className="mt-4 inline-flex items-center gap-2 rounded-full bg-emerald-50 px-5 py-2 text-sm font-medium text-emerald-700 hover:bg-emerald-100 transition-colors"
+          className="mt-4 inline-flex items-center gap-2 rounded-full bg-emerald-600/20 px-5 py-2 text-sm font-medium text-emerald-400 hover:bg-emerald-600/30 transition-colors"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

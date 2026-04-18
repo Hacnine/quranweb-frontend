@@ -42,7 +42,7 @@ export default function SearchPage() {
 
   return (
     <main className="mx-auto max-w-3xl px-4 py-6">
-      <h1 className="mb-6 text-2xl font-bold text-gray-800">Search the Quran</h1>
+      <h1 className="mb-6 text-2xl font-bold text-white">Search the Quran</h1>
 
       {/* Search Bar */}
       <div className="flex gap-2">
@@ -52,7 +52,7 @@ export default function SearchPage() {
           onChange={(e) => setQuery(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="Search in English translation..."
-          className="flex-1 rounded-lg border border-gray-300 px-4 py-2.5 text-sm focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+          className="flex-1 rounded-lg border border-dark-border bg-dark-card px-4 py-2.5 text-sm text-gray-100 placeholder-gray-500 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
         />
         <button
           onClick={doSearch}
@@ -68,12 +68,12 @@ export default function SearchPage() {
         {loading && (
           <div className="text-center py-8">
             <div className="inline-block h-6 w-6 animate-spin rounded-full border-2 border-emerald-600 border-t-transparent" />
-            <p className="mt-2 text-sm text-gray-500">Searching...</p>
+            <p className="mt-2 text-sm text-gray-400">Searching...</p>
           </div>
         )}
 
         {!loading && searched && results.length === 0 && (
-          <p className="text-center text-gray-500 py-8">
+          <p className="text-center text-gray-400 py-8">
             No results found for &ldquo;{query}&rdquo;
           </p>
         )}
@@ -84,9 +84,9 @@ export default function SearchPage() {
               key={`${r.surahIndex}-${r.verseKey}-${i}`}
               href={`/surahs/${parseInt(r.surahIndex, 10)}`}
             >
-              <div className="rounded-xl border border-gray-200 bg-white p-5 hover:border-emerald-300 hover:shadow-md transition-all mb-3">
+              <div className="rounded-xl border border-dark-border bg-dark-card p-5 hover:border-emerald-500/50 hover:shadow-md hover:shadow-emerald-900/20 transition-all mb-3">
                 <div className="mb-2 flex items-center gap-2">
-                  <span className="rounded-full bg-emerald-50 px-3 py-0.5 text-xs font-semibold text-emerald-700">
+                  <span className="rounded-full bg-emerald-600/20 px-3 py-0.5 text-xs font-semibold text-emerald-400">
                     {r.surahName} : {r.verseNumber}
                   </span>
                 </div>
@@ -94,7 +94,7 @@ export default function SearchPage() {
                 {/* Arabic */}
                 {r.arabic && (
                   <p
-                    className="text-gray-800 leading-loose"
+                    className="text-gray-100 leading-loose"
                     dir="rtl"
                     style={{
                       fontFamily: `"${arabicFontFamily}", serif`,
@@ -109,7 +109,7 @@ export default function SearchPage() {
                 {/* Translation */}
                 {showTranslation && (
                   <p
-                    className="mt-2 text-gray-600"
+                    className="mt-2 text-gray-400"
                     style={{ fontSize: `${translationFontSize}px` }}
                   >
                     {r.text}
