@@ -1,17 +1,23 @@
 export interface Settings {
-  fontSize: number;
-  fontFamily: string;
+  arabicFontSize: number;
+  translationFontSize: number;
+  arabicFontFamily: string;
   showTranslation: boolean;
   translationLang: string;
-  theme: "light" | "dark";
 }
 
+export const ARABIC_FONTS = [
+  { label: "Amiri", value: "Amiri" },
+  { label: "Scheherazade New", value: "Scheherazade New" },
+  { label: "Noto Naskh Arabic", value: "Noto Naskh Arabic" },
+];
+
 export const DEFAULT_SETTINGS: Settings = {
-  fontSize: 24,
-  fontFamily: "Amiri",
+  arabicFontSize: 28,
+  translationFontSize: 16,
+  arabicFontFamily: "Amiri",
   showTranslation: true,
   translationLang: "en",
-  theme: "light",
 };
 
 const SETTINGS_KEY = "quranweb_settings";

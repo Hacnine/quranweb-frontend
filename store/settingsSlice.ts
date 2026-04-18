@@ -24,12 +24,14 @@ const settingsSlice = createSlice({
       Object.assign(state, loaded);
     },
     setArabicFontSize(state, action: PayloadAction<number>) {
-      state.arabicFontSize = action.payload;
-      saveSettings({ arabicFontSize: action.payload });
+      const clampedSize = Math.min(Math.max(action.payload, 18), 48);
+      state.arabicFontSize = clampedSize;
+      saveSettings({ arabicFontSize: clampedSize });
     },
     setTranslationFontSize(state, action: PayloadAction<number>) {
-      state.translationFontSize = action.payload;
-      saveSettings({ translationFontSize: action.payload });
+      const clampedSize = Math.min(Math.max(action.payload, 12), 28);
+      state.translationFontSize = clampedSize;
+      saveSettings({ translationFontSize: clampedSize });
     },
     setArabicFontFamily(state, action: PayloadAction<string>) {
       state.arabicFontFamily = action.payload;

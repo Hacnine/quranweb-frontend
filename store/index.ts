@@ -1,10 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
+import settingsReducer from "./settingsSlice";
 
 export const store = configureStore({
   reducer: {
-    // Feature slices will be registered here, e.g.:
-    // settings: settingsReducer,
-    // search:   searchReducer,
+    settings: settingsReducer,
   },
 });
 
