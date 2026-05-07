@@ -32,7 +32,7 @@ export default function IconSidebar() {
   };
 
   return (
-    <aside className="fixed left-0 top-0 z-40 flex h-full w-14 flex-col items-center border-r border-qm-border bg-qm-sidebar py-3">
+    <aside className="fixed bottom-0 left-0 top-12 z-40 flex w-14 flex-col items-center border-r border-qm-border bg-qm-sidebar py-3">
       {/* Logo */}
       <Link
         href="/surahs/1"

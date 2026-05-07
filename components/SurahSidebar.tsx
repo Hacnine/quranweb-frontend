@@ -28,7 +28,7 @@ export default function SurahSidebar({ surahs, currentId }: Props) {
       {/* Mobile backdrop */}
       {surahSidebarOpen && (
         <div
-          className="fixed inset-0 z-30 bg-black/60 lg:hidden"
+          className="fixed bottom-0 left-0 right-0 top-12 z-30 bg-black/60 lg:hidden"
           onClick={() => dispatch(closeSurahSidebar())}
         />
       )}
@@ -36,11 +36,9 @@ export default function SurahSidebar({ surahs, currentId }: Props) {
       {/* Sidebar panel */}
       <aside
         className={`
-          fixed top-0 z-30 flex h-full w-72 flex-col border-r border-qm-border bg-qm-sidebar
+          fixed bottom-0 top-12 z-30 flex w-72 flex-col border-r border-qm-border bg-qm-sidebar
           transition-transform duration-300
-          /* Desktop: always visible, pushed right of icon sidebar */
           lg:left-14 lg:translate-x-0
-          /* Mobile: slide in from left edge */
           ${surahSidebarOpen ? "left-14 translate-x-0" : "-translate-x-full left-14"}
         `}
       >
