@@ -32,11 +32,11 @@ export default function SettingsPanel() {
 
       {/* Panel */}
       <aside
-        className={`fixed right-0 top-0 z-50 h-full w-80 max-w-[85vw] transform bg-dark-card shadow-2xl transition-transform duration-300 ${
+        className={`fixed right-0 top-0 z-50 h-full w-80 max-w-[85vw] transform bg-qm-sidebar shadow-2xl transition-transform duration-300 ${
           sidebarOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div className="flex items-center justify-between border-b border-dark-border px-5 py-4">
+        <div className="flex items-center justify-between border-b border-qm-border px-5 py-4">
           <h2 className="text-lg font-semibold text-gray-100">Settings</h2>
           <button
             onClick={() => dispatch(closeSidebar())}
@@ -69,7 +69,7 @@ export default function SettingsPanel() {
             <select
               value={arabicFontFamily}
               onChange={(e) => dispatch(setArabicFontFamily(e.target.value))}
-              className="w-full rounded-lg border border-dark-border bg-dark-navy px-3 py-2 text-sm text-gray-100 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+              className="w-full rounded-lg border border-qm-border bg-qm-bg px-3 py-2 text-sm text-qm-text focus:border-qm-green focus:outline-none focus:ring-1 focus:ring-qm-green"
             >
               {ARABIC_FONTS.map((f) => (
                 <option key={f.value} value={f.value}>
@@ -139,7 +139,7 @@ export default function SettingsPanel() {
             <button
               onClick={() => dispatch(setShowTranslation(!showTranslation))}
               className={`relative h-6 w-11 rounded-full transition-colors ${
-                showTranslation ? "bg-emerald-600" : "bg-gray-300"
+                showTranslation ? "bg-qm-green" : "bg-gray-600"
               }`}
             >
               <span

@@ -7,13 +7,33 @@
     --font-size-ayah: 1.5rem;
   }
 
-  body {
-    @apply bg-dark-navy text-gray-100;
-  }
-
-  /* Smooth scrolling */
   html {
     scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-qm-bg text-qm-text;
+  }
+
+  /* Thin scrollbar */
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 4px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: #2a2a38;
+    border-radius: 9999px;
+  }
+
+  /* Hide scrollbar */
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }
 

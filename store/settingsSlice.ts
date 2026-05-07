@@ -8,11 +8,13 @@ import {
 
 interface SettingsState extends Settings {
   sidebarOpen: boolean;
+  surahSidebarOpen: boolean;
 }
 
 const initialState: SettingsState = {
   ...DEFAULT_SETTINGS,
   sidebarOpen: false,
+  surahSidebarOpen: false,
 };
 
 const settingsSlice = createSlice({
@@ -47,6 +49,12 @@ const settingsSlice = createSlice({
     closeSidebar(state) {
       state.sidebarOpen = false;
     },
+    toggleSurahSidebar(state) {
+      state.surahSidebarOpen = !state.surahSidebarOpen;
+    },
+    closeSurahSidebar(state) {
+      state.surahSidebarOpen = false;
+    },
   },
 });
 
@@ -58,6 +66,8 @@ export const {
   setShowTranslation,
   toggleSidebar,
   closeSidebar,
+  toggleSurahSidebar,
+  closeSurahSidebar,
 } = settingsSlice.actions;
 
 export default settingsSlice.reducer;

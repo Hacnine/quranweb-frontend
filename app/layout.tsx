@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
-import { Providers } from "@/app/providers";
-import Header from "@/components/Header";
-import SettingsPanel from "@/components/SettingsPanel";
+import { Providers, AppShell } from "@/app/providers";
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
@@ -24,17 +22,18 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Scheherazade+New:wght@400;700&family=Noto+Naskh+Arabic:wght@400;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Scheherazade+New:wght@400;700&family=Noto+Naskh+Arabic:wght@400;700&family=KFGQPC+Uthman+Taha+Naskh&display=swap"
           rel="stylesheet"
         />
       </head>
-      <body className="min-h-screen bg-dark-navy text-gray-100 antialiased">
+      <body className="antialiased">
         <Providers>
-          <Header />
-          {children}
-          <SettingsPanel />
+          <AppShell>
+            {children}
+          </AppShell>
         </Providers>
       </body>
     </html>
   );
 }
+

@@ -1,4 +1,5 @@
 import { getSurahs, getSurahDetail, getTranslation } from "@/lib/api";
+import SurahSidebar from "@/components/SurahSidebar";
 import AyahList from "./AyahList";
 
 interface PageProps {
@@ -18,7 +19,8 @@ export async function generateMetadata({ params }: PageProps) {
 
 export default async function SurahPage({ params }: PageProps) {
   const { id } = await params;
-  const [surah, translation] = await Promise.all([
+  const [surahs, surah, translation] = await Promise.all([
+    getSurahs(),
     getSurahDetail(id),
     getTranslation(id, "en"),
   ]);
@@ -34,27 +36,45 @@ export default async function SurahPage({ params }: PageProps) {
   }));
 
   return (
-    <main className="mx-auto max-w-3xl px-4 py-6">
-      {/* Surah Header */}
-      <div className="mb-6 rounded-xl bg-gradient-to-br from-slate-900 to-emerald-9500 p-6 text-center text-white shadow-lg">
-        <p className="text-sm font-medium opacity-80">Surah {surahNumber}</p>
-        <h1 className="mt-1 text-3xl font-bold">{surah.name}</h1>
-        <p className="mt-1 text-sm opacity-80">
-          {surah.count} Ayahs
-        </p>
-      </div>
+    <div className="flex h-full w-full overflow-hidden">
+      {/* Surah list sidebar */}
+      <SurahSidebar surahs={surahs} currentId={surahNumber} />
 
-      {/* Bismillah (except for Surah 1 and 9) */}
-      {surahNumber !== 1 && surahNumber !== 9 && (
-        <p
-          className="mb-6 text-center font-arabic text-2xl text-gray-300"
-          dir="rtl"
-        >
-          بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
-        </p>
-      )}
+      {/* Main reader area — shifted right of surah sidebar on desktop */}
+      <main className="flex-1 overflow-y-auto lg:ml-72">
+        {/* Surah header */}
+        <div className="border-b border-qm-border bg-qm-bg px-6 py-8 text-center">
+          <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-qm-muted">
+            Surah {surahNumber}
+          </p>
+          <h1 className="mb-1 text-2xl font-bold text-qm-text">{surah.name}</h1>
+          <p
+            className="mb-2 text-3xl text-qm-text/80"
+            dir="rtl"
+            style={{ fontFamily: "Amiri, serif" }}
+          >
+            {surahs.find((s) => parseInt(s.index, 10) === surahNumber)?.titleAr ?? ""}
+          </p>
+          <p className="text-sm text-qm-muted">
+            {surah.count} Ayahs
+          </p>
+        </div>
 
-      <AyahList verses={verses} />
-    </main>
+        {/* Bismillah (except Surah 1 and 9) */}
+        {surahNumber !== 1 && surahNumber !== 9 && (
+          <p
+            className="border-b border-qm-border py-6 text-center text-2xl text-qm-text/70"
+            dir="rtl"
+            style={{ fontFamily: "Amiri, serif", fontSize: "28px" }}
+          >
+            بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
+          </p>
+        )}
+
+        {/* Ayah list */}
+        <AyahList surahId={surahNumber} verses={verses} />
+      </main>
+    </div>
   );
 }
+
