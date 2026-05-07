@@ -42,23 +42,43 @@ export default async function SurahPage({ params }: PageProps) {
 
       {/* Main reader area — shifted right of surah sidebar on desktop */}
       <main className="flex-1 overflow-y-auto lg:ml-72">
-        {/* Surah header */}
-        <div className="border-b border-qm-border bg-qm-bg px-6 py-8 text-center">
-          <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-qm-muted">
-            Surah {surahNumber}
-          </p>
-          <h1 className="mb-1 text-2xl font-bold text-qm-text">{surah.name}</h1>
-          <p
-            className="mb-2 text-3xl text-qm-text/80"
-            dir="rtl"
-            style={{ fontFamily: "Amiri, serif" }}
-          >
-            {surahs.find((s) => parseInt(s.index, 10) === surahNumber)?.titleAr ?? ""}
-          </p>
-          <p className="text-sm text-qm-muted">
-            {surah.count} Ayahs
-          </p>
-        </div>
+        {/* Surah header — matches reference design */}
+        {(() => {
+          const surahMeta = surahs.find((s) => parseInt(s.index, 10) === surahNumber);
+          const place = surahMeta?.place === "Mecca" ? "Makkah" : surahMeta?.place === "Medina" ? "Madinah" : surahMeta?.place ?? "";
+          return (
+            <div className="flex items-center gap-6 border-b border-qm-border bg-qm-bg px-6 py-6">
+              {/* Mosque illustration */}
+              <div className="hidden shrink-0 sm:block">
+                <div className="overflow-hidden rounded-xl border border-qm-border" style={{ width: 120, height: 80 }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/mosque.svg"
+                    alt="Mosque"
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+              </div>
+
+              {/* Surah info */}
+              <div className="flex-1 text-center">
+                <h1 className="text-2xl font-bold text-qm-text">
+                  Surah {surah.name}
+                </h1>
+                <p
+                  className="mt-1 text-xl text-qm-text/70"
+                  dir="rtl"
+                  style={{ fontFamily: "Amiri, serif" }}
+                >
+                  {surahMeta?.titleAr ?? ""}
+                </p>
+                <p className="mt-1 text-sm text-qm-muted">
+                  Ayah-{surah.count}, {place}
+                </p>
+              </div>
+            </div>
+          );
+        })()}
 
         {/* Bismillah (except Surah 1 and 9) */}
         {surahNumber !== 1 && surahNumber !== 9 && (

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { closeSurahSidebar } from "@/store/settingsSlice";
 import type { Surah } from "@/lib/types";
+import { SURAH_MEANINGS } from "@/lib/surahMeanings";
 
 interface Props {
   surahs: Surah[];
@@ -43,12 +44,21 @@ export default function SurahSidebar({ surahs, currentId }: Props) {
           ${surahSidebarOpen ? "left-14 translate-x-0" : "-translate-x-full left-14"}
         `}
       >
-        {/* Header */}
-        <div className="flex items-center justify-between border-b border-qm-border px-4 py-3">
+        {/* Header — "Surah | Juz | Page" tabs */}
+        <div className="flex items-center justify-between border-b border-qm-border px-3 py-2">
           <div className="flex gap-1">
-            <span className="rounded px-3 py-1 text-sm font-semibold text-white bg-white/10">
-              Surah
-            </span>
+            {["Surah", "Juz", "Page"].map((tab) => (
+              <button
+                key={tab}
+                className={`rounded px-3 py-1 text-xs font-semibold transition-colors ${
+                  tab === "Surah"
+                    ? "bg-qm-green/20 text-qm-green"
+                    : "text-qm-muted hover:text-qm-text"
+                }`}
+              >
+                {tab}
+              </button>
+            ))}
           </div>
           <button
             onClick={() => dispatch(closeSurahSidebar())}
@@ -99,28 +109,29 @@ export default function SurahSidebar({ surahs, currentId }: Props) {
           {filtered.map((surah) => {
             const num = parseInt(surah.index, 10);
             const isActive = currentId === num;
+            const meaning = SURAH_MEANINGS[num] ?? surah.type;
 
             return (
               <Link
                 key={surah.index}
                 href={`/surahs/${num}`}
                 onClick={() => dispatch(closeSurahSidebar())}
-                className={`flex items-center gap-3 px-3 py-3 transition-colors hover:bg-white/5 ${
-                  isActive ? "bg-qm-green-dim/40 border-l-2 border-qm-green" : ""
+                className={`flex items-center gap-3 px-3 py-2.5 transition-colors hover:bg-white/5 ${
+                  isActive ? "bg-qm-green-dim/50 border-l-2 border-qm-green" : "border-l-2 border-transparent"
                 }`}
               >
-                {/* Number badge */}
+                {/* Number badge — circle */}
                 <span
-                  className={`flex h-8 w-8 shrink-0 items-center justify-center rounded text-xs font-bold ${
+                  className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-bold ${
                     isActive
                       ? "bg-qm-green text-black"
-                      : "bg-white/10 text-qm-muted"
+                      : "border border-qm-border text-qm-muted"
                   }`}
                 >
                   {num}
                 </span>
 
-                {/* Name info */}
+                {/* Name + meaning */}
                 <div className="min-w-0 flex-1">
                   <p
                     className={`truncate text-sm font-semibold ${
@@ -129,7 +140,7 @@ export default function SurahSidebar({ surahs, currentId }: Props) {
                   >
                     {surah.title}
                   </p>
-                  <p className="truncate text-xs text-qm-muted">{surah.type}</p>
+                  <p className="truncate text-xs text-qm-muted">{meaning}</p>
                 </div>
 
                 {/* Arabic name */}

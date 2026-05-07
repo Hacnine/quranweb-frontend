@@ -65,93 +65,69 @@ export default function AyahCard({
   return (
     <div
       id={`ayah-${verseKey}`}
-      className="border-b border-qm-border px-4 py-5 transition-colors hover:bg-white/[0.02]"
+      className="border-b border-qm-border px-6 py-5 transition-colors hover:bg-white/[0.02]"
     >
       {/* Verse key */}
       <p className="mb-3 text-sm font-semibold text-qm-green">{verseKey}</p>
 
-      <div className="flex gap-4">
-        {/* Action column */}
+      <div className="flex gap-5">
+        {/* Action column — matches reference site */}
         <div className="flex shrink-0 flex-col items-center gap-3 pt-1">
-          {/* Play button */}
+          {/* Play / Pause */}
           <button
             onClick={togglePlay}
-            className={`flex h-8 w-8 items-center justify-center rounded-full transition-colors ${
-              playing
-                ? "bg-qm-green text-black"
-                : "text-qm-muted hover:bg-white/10 hover:text-qm-green"
+            className={`flex h-7 w-7 items-center justify-center rounded transition-colors ${
+              playing ? "text-qm-green" : "text-qm-muted hover:text-qm-green"
             }`}
             title={playing ? "Pause" : "Play"}
           >
             {loading ? (
               <span className="block h-3 w-3 animate-spin rounded-full border-2 border-current border-t-transparent" />
             ) : playing ? (
-              // Pause icon
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-4 w-4"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
               </svg>
             ) : (
-              // Play icon
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-4 w-4"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M8 5v14l11-7z" />
               </svg>
             )}
           </button>
 
-          {/* Bookmark icon */}
+          {/* Open book / Reading */}
           <button
-            className="flex h-7 w-7 items-center justify-center rounded text-qm-muted transition-colors hover:bg-white/10 hover:text-qm-green"
-            title="Bookmark"
+            className="flex h-7 w-7 items-center justify-center rounded text-qm-muted transition-colors hover:text-qm-green"
+            title="Read"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-4 w-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={1.8}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z"
-              />
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
             </svg>
           </button>
 
-          {/* Share icon */}
+          {/* Bookmark */}
           <button
-            className="flex h-7 w-7 items-center justify-center rounded text-qm-muted transition-colors hover:bg-white/10 hover:text-qm-green"
-            title="Copy"
+            className="flex h-7 w-7 items-center justify-center rounded text-qm-muted transition-colors hover:text-qm-green"
+            title="Bookmark"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" />
+            </svg>
+          </button>
+
+          {/* More options */}
+          <button
+            className="flex h-7 w-7 items-center justify-center rounded text-qm-muted transition-colors hover:text-qm-green"
+            title="More options"
             onClick={() => {
               navigator.clipboard
                 ?.writeText(`${verseKey}: ${arabic}\n${translation}`)
                 .catch(() => {});
             }}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-4 w-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={1.8}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M8.25 7.5V6.108c0-1.135.845-2.098 1.976-2.192.373-.03.748-.057 1.123-.08M15.75 18H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08M15.75 18.75v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5A3.375 3.375 0 006.375 7.5H5.25m11.9-3.664A2.251 2.251 0 0015 4.5h-1.5a2.251 2.251 0 00-2.15 1.586"
-              />
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
+              <circle cx="5" cy="12" r="1.5" />
+              <circle cx="12" cy="12" r="1.5" />
+              <circle cx="19" cy="12" r="1.5" />
             </svg>
           </button>
         </div>
