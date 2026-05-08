@@ -46,7 +46,7 @@ export default function IconSidebar() {
 
   return (
     <aside className="fixed bottom-0 left-0 z-40 h-[60px] w-full bg-qm-sidebar border-t border-qm-border laptop:top-0 laptop:bottom-auto laptop:h-full laptop:w-[60px] laptop:border-r laptop:border-t-0 laptop:flex laptop:flex-col laptop:items-center">
-      <Link href="/surahs/1" className="hidden laptop:flex h-[60px] w-full items-center justify-center border-b border-qm-border" title="Quran Web">
+      <Link href="/surahs/1" className="hidden laptop:flex h-[60px] w-full items-center justify-center" title="Quran Web">
         <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M6.99183 0H29.0082C32.8696 0 36 3.13043 36 6.99183V29.0082C36 32.8696 32.8696 36 29.0082 36H6.99183C3.13043 36 0 32.8696 0 29.0082V6.99183C0 3.13043 3.13043 0 6.99183 0Z" className="fill-qm-green"/>
           <path d="M26.0687 24.5654V28.2374C26.0688 28.3545 26.0389 28.4696 25.9818 28.5717C25.9247 28.6739 25.8424 28.7597 25.7427 28.821C25.6429 28.8822 25.5292 28.9168 25.4122 28.9215C25.2953 28.9263 25.1791 28.9009 25.0748 28.8479L18 25.2596" stroke="#E2E2E2" strokeWidth="0.782609"/>
@@ -66,7 +66,7 @@ export default function IconSidebar() {
             </svg>
           </NavBtn>
 
-        <NavBtn href="/surahs/1" title="Quran" active={isQuran}>
+        <NavBtn href="/surahs/1" title="Quran" >
           <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none">
             <path opacity="0.4" d="M20.2264 2.16675H18.168C15.8064 2.16675 14.5605 3.41258 14.5605 5.77425V7.83258C14.5605 10.1942 15.8064 11.4401 18.168 11.4401H20.2264C22.588 11.4401 23.8339 10.1942 23.8339 7.83258V5.77425C23.8339 3.41258 22.588 2.16675 20.2264 2.16675Z" fill="currentColor"/>
             <path opacity="0.4" d="M7.84268 14.5491H5.78435C3.41185 14.5491 2.16602 15.7949 2.16602 18.1566V20.2149C2.16602 22.5874 3.41185 23.8332 5.77352 23.8332H7.83185C10.1935 23.8332 11.4394 22.5874 11.4394 20.2257V18.1674C11.4502 15.7949 10.2043 14.5491 7.84268 14.5491Z" fill="currentColor"/>
@@ -89,6 +89,7 @@ export default function IconSidebar() {
           </svg>
         </NavBtn>
 
+        <div className="hidden laptop:block">
         <NavBtn title="More" onClick={() => dispatch(toggleSidebar())}>
           <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
             <path d="M20.1667 7.58075V3.87742C20.1667 2.41992 19.58 1.83325 18.1225 1.83325H14.4192C12.9617 1.83325 12.375 2.41992 12.375 3.87742V7.58075C12.375 9.03825 12.9617 9.62492 14.4192 9.62492H18.1225C19.58 9.62492 20.1667 9.03825 20.1667 7.58075Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -98,6 +99,7 @@ export default function IconSidebar() {
             <path d="M13.75 17.875H19.25" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
           </svg>
         </NavBtn>
+        </div>
       </div>
     </aside>
   );
