@@ -6,10 +6,26 @@ export interface Settings {
   translationLang: string;
 }
 
-export const ARABIC_FONTS = [
-  { label: "Amiri", value: "Amiri" },
-  { label: "Scheherazade New", value: "Scheherazade New" },
-  { label: "Noto Naskh Arabic", value: "Noto Naskh Arabic" },
+export type ArabicFontCategory = "Uthmani" | "Indopak";
+
+export interface ArabicFontOption {
+  label: string;
+  value: string;
+  category: ArabicFontCategory;
+}
+
+export const ARABIC_FONTS: ArabicFontOption[] = [
+  { label: "KFGQ", value: "KFGQ", category: "Uthmani" },
+  { label: "KFGQ V2", value: "KFGQ V2", category: "Uthmani" },
+  { label: "Me Quran", value: "Me Quran", category: "Uthmani" },
+  { label: "Al Mushaf", value: "Al Mushaf", category: "Uthmani" },
+  { label: "PDMS Saleem Quran", value: "PDMS Saleem Quran", category: "Uthmani" },
+  { label: "PDMS Islamic", value: "PDMS Islamic", category: "Uthmani" },
+  { label: "Al Qalam Quran Majeed", value: "Al Qalam Quran Majeed", category: "Uthmani" },
+  { label: "Amiri Quran", value: "Amiri Quran", category: "Uthmani" },
+  { label: "Noor E Huda", value: "Noor E Huda", category: "Indopak" },
+  { label: "Noor E Hedayet", value: "Noor E Hedayet", category: "Indopak" },
+  { label: "Noor E Hira", value: "Noor E Hira", category: "Indopak" },
 ];
 
 export const DEFAULT_SETTINGS: Settings = {
