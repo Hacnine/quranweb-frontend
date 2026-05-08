@@ -44,7 +44,6 @@ export default function IconSidebar() {
 
   return (
     <aside className="fixed bottom-0 left-0 top-0 z-40 flex w-[60px] flex-col items-center bg-qm-sidebar border-r border-qm-border">
-      {/* Logo — occupies same height as header (60px) */}
       <Link href="/surahs/1" className="flex h-[60px] w-full items-center justify-center border-b border-qm-border" title="Quran Web">
         <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M6.99183 0H29.0082C32.8696 0 36 3.13043 36 6.99183V29.0082C36 32.8696 32.8696 36 29.0082 36H6.99183C3.13043 36 0 32.8696 0 29.0082V6.99183C0 3.13043 3.13043 0 6.99183 0Z" className="fill-qm-green"/>
@@ -57,9 +56,7 @@ export default function IconSidebar() {
         </svg>
       </Link>
 
-      {/* Nav items */}
       <div className="flex flex-1 items-center justify-between gap-6 px-3 py-4 max-lg:w-full lg:flex-col lg:justify-center lg:gap-6">
-        {/* Home */}
         <NavBtn href="/" title="Home" active={pathname === "/"}>
           <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
             <path d="M9.23051 2.58494L2.87801 7.67243C2.16301 8.24076 1.70467 9.44163 1.86051 10.34L3.07968 17.6366C3.29968 18.9383 4.54634 19.9924 5.86634 19.9924H16.133C17.4438 19.9924 18.6997 18.9291 18.9197 17.6366L20.1388 10.34C20.2855 9.44163 19.8272 8.24076 19.1213 7.67243L12.7688 2.59411C11.788 1.80578 10.2022 1.80577 9.23051 2.58494Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -67,7 +64,6 @@ export default function IconSidebar() {
           </svg>
         </NavBtn>
 
-        {/* Quran / Surahs (active on surah pages) */}
         <NavBtn href="/surahs/1" title="Quran" active={isQuran}>
           <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none">
             <path opacity="0.4" d="M20.2264 2.16675H18.168C15.8064 2.16675 14.5605 3.41258 14.5605 5.77425V7.83258C14.5605 10.1942 15.8064 11.4401 18.168 11.4401H20.2264C22.588 11.4401 23.8339 10.1942 23.8339 7.83258V5.77425C23.8339 3.41258 22.588 2.16675 20.2264 2.16675Z" fill="currentColor"/>
@@ -77,7 +73,6 @@ export default function IconSidebar() {
           </svg>
         </NavBtn>
 
-        {/* Notes / Tasbih */}
         <NavBtn title="Notes">
           <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
             <path d="M6.78305 5.79323L14.5655 3.19906C18.058 2.0349 19.9555 3.94156 18.8005 7.43406L16.2064 15.2166C14.4647 20.4507 11.6047 20.4507 9.86305 15.2166L9.09305 12.9066L6.78305 12.1366C1.54888 10.3949 1.54888 7.54406 6.78305 5.79323Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -85,7 +80,6 @@ export default function IconSidebar() {
           </svg>
         </NavBtn>
 
-        {/* Bookmarks */}
         <NavBtn href="/profile/bookmarks" title="Bookmarks">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="18" viewBox="0 0 16 18" fill="none">
             <path d="M1.64453 13.7513V7.17862C1.64453 4.29211 1.64453 2.84886 2.57528 1.95214C3.50603 1.05542 5.00405 1.05542 8.00009 1.05542C10.9961 1.05542 12.4942 1.05542 13.4249 1.95214C14.3556 2.84886 14.3556 4.29211 14.3556 7.17862V13.7513C14.3556 15.5832 14.3556 16.4991 13.7417 16.827C12.5527 17.4618 10.3224 15.3437 9.26325 14.7059C8.64899 14.336 8.34186 14.151 8.00009 14.151C7.65832 14.151 7.35118 14.336 6.73692 14.7059C5.67777 15.3437 3.4475 17.4618 2.25852 16.827C1.64453 16.4991 1.64453 15.5832 1.64453 13.7513Z" stroke="currentColor" strokeWidth="1.38569" strokeLinecap="round" strokeLinejoin="round"/>
@@ -93,7 +87,6 @@ export default function IconSidebar() {
           </svg>
         </NavBtn>
 
-        {/* More / Apps */}
         <NavBtn title="More" onClick={() => dispatch(toggleSidebar())}>
           <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
             <path d="M20.1667 7.58075V3.87742C20.1667 2.41992 19.58 1.83325 18.1225 1.83325H14.4192C12.9617 1.83325 12.375 2.41992 12.375 3.87742V7.58075C12.375 9.03825 12.9617 9.62492 14.4192 9.62492H18.1225C19.58 9.62492 20.1667 9.03825 20.1667 7.58075Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>

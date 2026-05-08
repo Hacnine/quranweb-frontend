@@ -80,12 +80,10 @@ export default function AyahCard({
       id={`ayah-card-${verseKey}`}
       className="overflow-hidden border-b border-qm-border py-6 transition-colors duration-200 relative px-[--padding-x] [--padding-x:15px] tablet:[--padding-x:24px]"
     >
-      {/* Verse key + mobile more button */}
       <div className="flex items-center justify-between">
         <p className="text-sm font-semibold text-qm-green pl-0 tablet:pl-2">
           {verseKey}
         </p>
-        {/* Mobile-only more button */}
         <div className="tablet:hidden">
           <ActionBtn title="More options">
             <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
@@ -95,11 +93,8 @@ export default function AyahCard({
         </div>
       </div>
 
-      {/* Content grid: actions | arabic + translation */}
       <div className="grid grid-cols-1 gap-7 pt-3 tablet:grid-cols-[auto_1fr]">
-        {/* Action column — desktop only */}
         <div className="hidden flex-col items-center gap-2 tablet:flex">
-          {/* Play / Pause */}
           <ActionBtn title={playing ? "Pause" : "Play"} onClick={togglePlay}>
             {loading ? (
               <span className="block h-[18px] w-[18px] animate-spin rounded-full border-2 border-qm-icon border-t-transparent" />
@@ -115,7 +110,6 @@ export default function AyahCard({
             )}
           </ActionBtn>
 
-          {/* Open book / Read */}
           <ActionBtn title="Read">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none" className="text-qm-icon">
               <path d="M20.1673 15.3449V4.28072C20.1673 3.18072 19.269 2.36489 18.1782 2.45655H18.1232C16.1982 2.62155 13.274 3.60239 11.6423 4.62906L11.4865 4.72989C11.2207 4.89489 10.7807 4.89489 10.5148 4.72989L10.2857 4.59239C8.65398 3.57489 5.73898 2.60322 3.81398 2.44739C2.72315 2.35572 1.83398 3.18072 1.83398 4.27155V15.3449C1.83398 16.2249 2.54898 17.0499 3.42898 17.1599L3.69482 17.1966C5.68398 17.4624 8.75482 18.4707 10.5148 19.4332L10.5515 19.4516C10.799 19.5891 11.1932 19.5891 11.4315 19.4516C13.1915 18.4799 16.2715 17.4624 18.2698 17.1966L18.5723 17.1599C19.4523 17.0499 20.1673 16.2249 20.1673 15.3449Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -125,7 +119,6 @@ export default function AyahCard({
             </svg>
           </ActionBtn>
 
-          {/* Bookmark */}
           <ActionBtn title="Bookmark">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="18" viewBox="0 0 16 18" fill="none" className="text-qm-icon">
               <path d="M1.64453 13.7513V7.17862C1.64453 4.29211 1.64453 2.84886 2.57528 1.95214C3.50603 1.05542 5.00405 1.05542 8.00009 1.05542C10.9961 1.05542 12.4942 1.05542 13.4249 1.95214C14.3556 2.84886 14.3556 4.29211 14.3556 7.17862V13.7513C14.3556 15.5832 14.3556 16.4991 13.7417 16.827C12.5527 17.4618 10.3224 15.3437 9.26325 14.7059C8.64899 14.336 8.34186 14.151 8.00009 14.151C7.65832 14.151 7.35118 14.336 6.73692 14.7059C5.67777 15.3437 3.4475 17.4618 2.25852 16.827C1.64453 16.4991 1.64453 15.5832 1.64453 13.7513Z" stroke="currentColor" strokeWidth="1.38569" strokeLinecap="round" strokeLinejoin="round"/>
@@ -133,7 +126,6 @@ export default function AyahCard({
             </svg>
           </ActionBtn>
 
-          {/* More options */}
           <ActionBtn
             title="More options"
             onClick={() => {
@@ -148,7 +140,6 @@ export default function AyahCard({
           </ActionBtn>
         </div>
 
-        {/* Arabic + translation */}
         <div>
           <p
             dir="rtl"

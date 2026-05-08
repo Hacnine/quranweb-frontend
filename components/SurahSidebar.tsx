@@ -29,7 +29,6 @@ export default function SurahSidebar({ surahs, currentId }: Props) {
 
   return (
     <>
-      {/* Mobile backdrop */}
       {surahSidebarOpen && (
         <div
           className="fixed bottom-0 left-0 right-0 top-[60px] z-30 bg-black/60 lg:hidden"
@@ -37,16 +36,14 @@ export default function SurahSidebar({ surahs, currentId }: Props) {
         />
       )}
 
-      {/* Sidebar panel */}
       <aside
         className={`
-          fixed bottom-0 top-[60px] z-30 flex w-[300px] flex-col border-r border-qm-border bg-qm-sidebar
+          fixed bottom-0 top-[60px] z-30 flex w-[300px] flex-col border-r border-qm-border bg-qm-bg
           transition-transform duration-300
           lg:left-[60px] lg:translate-x-0
           ${surahSidebarOpen ? "left-[60px] translate-x-0" : "-translate-x-full left-[60px]"}
         `}
       >
-        {/* Tabs — Surah / Juz / Page with sliding pill */}
         <div className="px-[26px] pt-6 pb-4">
           <div className="relative isolate flex min-h-10 items-center rounded-full border-4 border-qm-sidebar bg-qm-sidebar">
             {TABS.map((tab) => (
@@ -60,7 +57,6 @@ export default function SurahSidebar({ surahs, currentId }: Props) {
                 {tab}
               </button>
             ))}
-            {/* Sliding indicator */}
             <div
               className="absolute h-full rounded-full bg-qm-bg transition-transform duration-300 ease-in-out"
               style={{
@@ -71,7 +67,6 @@ export default function SurahSidebar({ surahs, currentId }: Props) {
           </div>
         </div>
 
-        {/* Search */}
         <div className="mb-4 px-[26px]">
           <div className="flex h-10 items-center gap-3 rounded-full border border-qm-border bg-qm-sidebar px-3 text-sm">
             <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none" className="shrink-0 text-qm-muted">
@@ -87,7 +82,6 @@ export default function SurahSidebar({ surahs, currentId }: Props) {
           </div>
         </div>
 
-        {/* Surah list */}
         <div className="flex-1 overflow-y-auto pb-4 scrollbar-thin">
           {filtered.map((surah) => {
             const num = parseInt(surah.index, 10);
@@ -105,7 +99,6 @@ export default function SurahSidebar({ surahs, currentId }: Props) {
                       : "border-qm-border"
                   }`}
                 >
-                  {/* Diamond number badge */}
                   <div
                     className={`flex size-8 min-h-8 min-w-8 rotate-45 items-center justify-center rounded-[6px] transition-colors ${
                       isActive
@@ -124,7 +117,6 @@ export default function SurahSidebar({ surahs, currentId }: Props) {
                     </span>
                   </div>
 
-                  {/* Name + meaning */}
                   <div className="flex-grow text-start">
                     <p className="line-clamp-1 break-all text-sm font-medium text-qm-text">
                       {surah.title}
@@ -134,7 +126,6 @@ export default function SurahSidebar({ surahs, currentId }: Props) {
                     </p>
                   </div>
 
-                  {/* Arabic index numeral */}
                   <span
                     className="text-right text-lg text-qm-muted"
                     style={{ fontFamily: "Amiri, serif" }}

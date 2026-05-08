@@ -8,7 +8,7 @@ export default function Header() {
   const dispatch = useAppDispatch();
 
   return (
-    <header className="fixed left-0 lg:left-[60px] right-0 top-0 z-50 flex h-[60px] items-center justify-between border-b border-qm-border bg-qm-sidebar px-4 tablet:px-6">
+    <header className="fixed left-0 lg:left-[60px] right-0 top-0 z-50 flex h-[60px] items-center justify-between border-b border-qm-border bg-qm-bg px-4 tablet:px-6">
       {/* Left: site name + tagline */}
       <div className="flex items-center gap-2.5">
         <Link href="/surahs/1" className="hidden items-center gap-2.5 sm:flex">
