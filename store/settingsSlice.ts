@@ -9,12 +9,18 @@ import {
 interface SettingsState extends Settings {
   sidebarOpen: boolean;
   surahSidebarOpen: boolean;
+  activeTab: "translation" | "reading";
+  fontFaceScreenOpen: boolean;
+  fontVariant: "Uthmani" | "Indopak";
 }
 
 const initialState: SettingsState = {
   ...DEFAULT_SETTINGS,
   sidebarOpen: false,
   surahSidebarOpen: false,
+  activeTab: "translation",
+  fontFaceScreenOpen: false,
+  fontVariant: "Uthmani",
 };
 
 const settingsSlice = createSlice({
@@ -55,6 +61,23 @@ const settingsSlice = createSlice({
     closeSurahSidebar(state) {
       state.surahSidebarOpen = false;
     },
+    setShowByWords(state, action: PayloadAction<boolean>) {
+      state.showByWords = action.payload;
+      saveSettings({ showByWords: action.payload });
+    },
+    setTajweed(state, action: PayloadAction<boolean>) {
+      state.tajweed = action.payload;
+      saveSettings({ tajweed: action.payload });
+    },
+    setActiveTab(state, action: PayloadAction<"translation" | "reading">) {
+      state.activeTab = action.payload;
+    },
+    toggleFontFaceScreen(state) {
+      state.fontFaceScreenOpen = !state.fontFaceScreenOpen;
+    },
+    setFontVariant(state, action: PayloadAction<"Uthmani" | "Indopak">) {
+      state.fontVariant = action.payload;
+    },
   },
 });
 
@@ -68,6 +91,11 @@ export const {
   closeSidebar,
   toggleSurahSidebar,
   closeSurahSidebar,
+  setShowByWords,
+  setTajweed,
+  setActiveTab,
+  toggleFontFaceScreen,
+  setFontVariant,
 } = settingsSlice.actions;
 
 export default settingsSlice.reducer;

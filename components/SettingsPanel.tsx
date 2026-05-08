@@ -8,10 +8,20 @@ import {
   setTranslationFontSize,
   setArabicFontFamily,
   setShowTranslation,
+  setActiveTab,
+  toggleFontFaceScreen,
+  setFontVariant,
+  setShowByWords,
+  setTajweed,
 } from "@/store/settingsSlice";
-import { ARABIC_FONTS, ArabicFontCategory } from "@/lib/settings";
+import { ARABIC_FONTS } from "@/lib/settings";
 
-const FONT_CATEGORIES: ArabicFontCategory[] = ["Uthmani", "Indopak"];
+const TRANSLATIONS = [
+  { label: "Saheeh International", value: "en" },
+  { label: "Bengali", value: "bn" },
+  { label: "Urdu", value: "ur" },
+  { label: "Indonesian", value: "id" },
+];
 
 export default function SettingsPanel() {
   const dispatch = useAppDispatch();
@@ -21,11 +31,28 @@ export default function SettingsPanel() {
     translationFontSize,
     arabicFontFamily,
     showTranslation,
+    activeTab,
+    fontFaceScreenOpen,
+    fontVariant,
+    showByWords,
+    tajweed,
   } = useAppSelector((s) => s.settings);
-  const [activeTab, setActiveTab] = useState<"Translation" | "Reading">("Translation");
-  const [fontCategory, setFontCategory] = useState<ArabicFontCategory>("Uthmani");
 
-  const fontOptions = ARABIC_FONTS.filter((font) => font.category === fontCategory);
+  const [expandedSections, setExpandedSections] = useState({
+    readingSettings: true,
+    fontSettings: true,
+  });
+
+  const toggleSection = (section: keyof typeof expandedSections) => {
+    setExpandedSections((prev) => ({
+      ...prev,
+      [section]: !prev[section],
+    }));
+  };
+
+  const fontsForVariant = ARABIC_FONTS.filter(
+    (f) => !f.script || f.script === fontVariant
+  );
 
   return (
     <>
@@ -42,9 +69,11 @@ export default function SettingsPanel() {
         }`}
       >
         <div className="flex items-center justify-between border-b border-qm-border px-5 py-4">
-          <div>
+          <div className="flex items-center gap-2">
+            <svg className="h-5 w-5 text-qm-green" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2m0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8m3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z" />
+            </svg>
             <h2 className="text-lg font-semibold text-gray-100">Settings</h2>
-            <p className="text-xs text-qm-muted">Reading and translation controls</p>
           </div>
           <button
             onClick={() => dispatch(closeSidebar())}
@@ -68,164 +97,274 @@ export default function SettingsPanel() {
           </button>
         </div>
 
-        <div className="space-y-6 overflow-y-auto p-5" style={{ height: "calc(100% - 65px)" }}>
-          <div className="mb-4 flex items-center gap-2 rounded-full bg-qm-sidebar px-1 py-1">
-            {(["Translation", "Reading"] as const).map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className={`rounded-full px-4 py-2 text-sm font-semibold transition-all ${
-                  activeTab === tab
-                    ? "bg-qm-green text-qm-bg"
-                    : "text-qm-text/70 hover:text-qm-text"
-                }`}
-              >
-                {tab}
-              </button>
-            ))}
-          </div>
-
-          {activeTab === "Reading" ? (
+        <div className="space-y-0 overflow-y-auto" style={{ height: "calc(100% - 65px)" }}>
+          {!fontFaceScreenOpen ? (
             <>
-              <div className="space-y-3 rounded-3xl border border-qm-border bg-qm-card p-4">
-                <div className="flex items-center justify-between text-sm font-semibold text-qm-text">
-                  <span>Reading Settings</span>
-                  <span className="text-qm-muted">Font face + sizes</span>
-                </div>
-                <div className="rounded-3xl border border-qm-border bg-qm-sidebar p-3">
-                  <div className="mb-3 flex items-center gap-2">
-                    <span className="text-sm font-medium text-qm-text">Font Settings</span>
-                    <span className="rounded-full bg-qm-green/15 px-2 py-0.5 text-xs font-semibold text-qm-green">Arabic</span>
-                  </div>
-                  <div className="mb-4 flex gap-2 rounded-full bg-qm-bg p-1">
-                    {FONT_CATEGORIES.map((category) => (
-                      <button
-                        key={category}
-                        onClick={() => setFontCategory(category)}
-                        className={`flex-1 rounded-full px-3 py-2 text-sm font-semibold transition-colors ${
-                          fontCategory === category
-                            ? "bg-qm-green text-qm-bg"
-                            : "text-qm-text/70 hover:text-qm-text"
-                        }`}
-                      >
-                        {category}
-                      </button>
-                    ))}
-                  </div>
-                  <div className="space-y-2">
-                    {fontOptions.map((font) => (
-                      <button
-                        key={font.value}
-                        onClick={() => dispatch(setArabicFontFamily(font.value))}
-                        className={`flex w-full items-center justify-between rounded-2xl border px-4 py-3 text-left text-sm transition-all ${
-                          arabicFontFamily === font.value
-                            ? "border-qm-green bg-qm-green/10 text-qm-text"
-                            : "border-qm-border bg-qm-sidebar text-qm-text/80 hover:border-qm-green/50 hover:bg-qm-green/5"
-                        }`}
-                      >
-                        <span>{font.label}</span>
-                        {arabicFontFamily === font.value && (
-                          <span className="text-qm-green">✓</span>
-                        )}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <label className="mb-2 block text-sm font-medium text-gray-300">
-                    Arabic Font Size
-                  </label>
-                  <div className="flex items-center justify-between text-sm text-qm-text/80">
-                    <span>Size</span>
-                    <span className="text-qm-green font-semibold">{arabicFontSize}px</span>
-                  </div>
-                  <input
-                    type="range"
-                    min={18}
-                    max={48}
-                    step={2}
-                    value={arabicFontSize}
-                    onChange={(e) =>
-                      dispatch(setArabicFontSize(Number(e.target.value)))
-                    }
-                    className="mt-3 w-full accent-qm-green"
-                  />
-                  <div className="flex justify-between text-xs text-qm-muted mt-1">
-                    <span>18px</span>
-                    <span>48px</span>
-                  </div>
-                </div>
+              <div className="border-b border-qm-border px-5 py-3 flex gap-4">
+                <button
+                  onClick={() => dispatch(setActiveTab("translation"))}
+                  className={`pb-2 transition-colors ${
+                    activeTab === "translation"
+                      ? "border-b-2 border-qm-green text-white"
+                      : "border-b-2 border-transparent text-qm-muted"
+                  }`}
+                >
+                  Translation
+                </button>
+                <button
+                  onClick={() => dispatch(setActiveTab("reading"))}
+                  className={`pb-2 transition-colors ${
+                    activeTab === "reading"
+                      ? "border-b-2 border-qm-green text-white"
+                      : "border-b-2 border-transparent text-qm-muted"
+                  }`}
+                >
+                  Reading
+                </button>
               </div>
+
+              {activeTab === "translation" ? (
+                <div className="p-5 space-y-4">
+                  <div>
+                    <h3 className="text-sm font-medium text-qm-text mb-3">Translations</h3>
+                    <div className="space-y-2">
+                      {TRANSLATIONS.map((t) => (
+                        <button
+                          key={t.value}
+                          className="w-full text-left px-4 py-2 rounded-lg hover:bg-qm-bg transition-colors flex items-center justify-between"
+                        >
+                          <span className="text-sm text-qm-text">{t.label}</span>
+                          <svg className="h-5 w-5 text-qm-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 className="text-sm font-medium text-qm-text mb-3">Word-by-word translations</h3>
+                    <div className="space-y-2">
+                      <button className="w-full text-left px-4 py-2 rounded-lg hover:bg-qm-bg transition-colors flex items-center justify-between">
+                        <span className="text-sm text-qm-text">Bengali</span>
+                        <svg className="h-5 w-5 text-qm-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div className="p-5 space-y-3">
+                  <div>
+                    <button
+                      onClick={() => toggleSection("readingSettings")}
+                      className="w-full flex items-center justify-between px-3 py-2 hover:bg-qm-bg/50 rounded transition-colors"
+                    >
+                      <div className="flex items-center gap-2">
+                        <svg className="h-5 w-5 text-qm-green" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-5.04-6.71l-2.75 3.54-1.3-1.54c-.3-.36-.77-.57-1.25-.57-.99 0-1.66.93-1.3 1.8l2.55 3.13c.35.43.88.68 1.44.68.56 0 1.09-.25 1.44-.68l3.98-5.1c.35-.45.07-1.12-.57-1.12-.68 0-1.16.62-1.44 1.14z" />
+                        </svg>
+                        <h3 className="text-sm font-medium text-qm-text">Reading Settings</h3>
+                      </div>
+                      <svg
+                        className={`h-5 w-5 text-qm-muted transition-transform ${
+                          expandedSections.readingSettings ? "rotate-180" : ""
+                        }`}
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                      </svg>
+                    </button>
+
+                    {expandedSections.readingSettings && (
+                      <div className="mt-2 space-y-4 pl-3">
+                        <div>
+                          <label className="mb-2 flex items-center justify-between text-sm font-medium text-gray-300">
+                            <span>Arabic Font Size</span>
+                            <span className="text-qm-green font-semibold">{arabicFontSize}px</span>
+                          </label>
+                          <input
+                            type="range"
+                            min={18}
+                            max={48}
+                            step={2}
+                            value={arabicFontSize}
+                            onChange={(e) =>
+                              dispatch(setArabicFontSize(Number(e.target.value)))
+                            }
+                            className="w-full accent-qm-green"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="mb-2 flex items-center justify-between text-sm font-medium text-gray-300">
+                            <span>Translation Font Size</span>
+                            <span className="text-qm-green font-semibold">{translationFontSize}px</span>
+                          </label>
+                          <input
+                            type="range"
+                            min={12}
+                            max={28}
+                            step={1}
+                            value={translationFontSize}
+                            onChange={(e) =>
+                              dispatch(setTranslationFontSize(Number(e.target.value)))
+                            }
+                            className="w-full accent-qm-green"
+                          />
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  <div>
+                    <button
+                      onClick={() => toggleSection("fontSettings")}
+                      className="w-full flex items-center justify-between px-3 py-2 hover:bg-qm-bg/50 rounded transition-colors"
+                    >
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm font-medium text-qm-green bg-qm-green/20 rounded px-2 py-1">F</span>
+                        <h3 className="text-sm font-medium text-qm-green">Font Settings</h3>
+                      </div>
+                      <svg
+                        className={`h-5 w-5 text-qm-muted transition-transform ${
+                          expandedSections.fontSettings ? "rotate-180" : ""
+                        }`}
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                      </svg>
+                    </button>
+
+                    {expandedSections.fontSettings && (
+                      <div className="mt-2 space-y-3 pl-3">
+                        <button
+                          onClick={() => dispatch(toggleFontFaceScreen())}
+                          className="w-full flex items-center justify-between px-3 py-2 rounded-lg bg-qm-bg hover:bg-qm-bg/80 transition-colors text-left"
+                        >
+                          <span className="text-sm text-qm-text">Arabic Font Face</span>
+                          <svg className="h-5 w-5 text-qm-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </button>
+
+                        <div className="px-2 py-1 bg-qm-bg/50 rounded text-xs text-qm-text">
+                          <p>Current: {ARABIC_FONTS.find(f => f.value === arabicFontFamily)?.label || arabicFontFamily}</p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="flex items-center justify-between px-3 py-2">
+                    <span className="text-sm font-medium text-gray-300">Show Translation</span>
+                    <button
+                      onClick={() => dispatch(setShowTranslation(!showTranslation))}
+                      className={`relative h-6 w-11 rounded-full transition-colors ${
+                        showTranslation ? "bg-qm-green" : "bg-gray-600"
+                      }`}
+                    >
+                      <span
+                        className={`absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-white shadow transition-transform ${
+                          showTranslation ? "translate-x-5" : "translate-x-0"
+                        }`}
+                      />
+                    </button>
+                  </div>
+
+                  <div className="flex items-center justify-between px-3 py-2">
+                    <span className="text-sm font-medium text-gray-300">Show by words</span>
+                    <button
+                      onClick={() => dispatch(setShowByWords(!showByWords))}
+                      className={`relative h-6 w-11 rounded-full transition-colors ${
+                        showByWords ? "bg-qm-green" : "bg-gray-600"
+                      }`}
+                    >
+                      <span
+                        className={`absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-white shadow transition-transform ${
+                          showByWords ? "translate-x-5" : "translate-x-0"
+                        }`}
+                      />
+                    </button>
+                  </div>
+
+                  <div className="flex items-center justify-between px-3 py-2">
+                    <span className="text-sm font-medium text-gray-300">Tajweed</span>
+                    <button
+                      onClick={() => dispatch(setTajweed(!tajweed))}
+                      className={`relative h-6 w-11 rounded-full transition-colors ${
+                        tajweed ? "bg-qm-green" : "bg-gray-600"
+                      }`}
+                    >
+                      <span
+                        className={`absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-white shadow transition-transform ${
+                          tajweed ? "translate-x-5" : "translate-x-0"
+                        }`}
+                      />
+                    </button>
+                  </div>
+                </div>
+              )}
             </>
           ) : (
-            <>
-              <div className="space-y-4 rounded-3xl border border-qm-border bg-qm-card p-4">
-                <div className="text-sm font-semibold text-qm-text">Translation Settings</div>
-                <div className="flex items-center justify-between rounded-2xl border border-qm-border bg-qm-sidebar px-4 py-3">
-                  <div>
-                    <div className="text-sm font-medium text-qm-text">Show Translation</div>
-                    <p className="text-xs text-qm-muted">Toggle translation on/off while reading.</p>
-                  </div>
-                  <button
-                    onClick={() => dispatch(setShowTranslation(!showTranslation))}
-                    className={`relative h-6 w-11 rounded-full transition-colors ${
-                      showTranslation ? "bg-qm-green" : "bg-gray-600"
-                    }`}
-                  >
-                    <span
-                      className={`absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-white shadow transition-transform ${
-                        showTranslation ? "translate-x-5" : "translate-x-0"
-                      }`}
-                    />
-                  </button>
-                </div>
-                <div>
-                  <label className="mb-2 flex items-center justify-between text-sm font-medium text-gray-300">
-                    <span>Translation Font Size</span>
-                    <span className="text-qm-green font-semibold">{translationFontSize}px</span>
-                  </label>
-                  <input
-                    type="range"
-                    min={12}
-                    max={28}
-                    step={1}
-                    value={translationFontSize}
-                    onChange={(e) =>
-                      dispatch(setTranslationFontSize(Number(e.target.value)))
-                    }
-                    className="w-full accent-qm-green"
-                  />
-                  <div className="flex justify-between text-xs text-qm-muted mt-1">
-                    <span>12px</span>
-                    <span>28px</span>
-                  </div>
-                </div>
-              </div>
-            </>
-          )}
-
-          <div className="rounded-3xl border border-qm-border bg-qm-card p-4">
-            <div className="text-sm font-semibold text-qm-text">Preview</div>
-            <p
-              className="mt-3 text-right text-qm-text"
-              style={{
-                fontFamily: arabicFontFamily,
-                fontSize: `${arabicFontSize}px`,
-                lineHeight: "1.8",
-              }}
-            >
-              بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
-            </p>
-            {showTranslation && (
-              <p
-                className="mt-4 text-sm leading-7 text-qm-text/80"
-                style={{ fontSize: `${translationFontSize}px` }}
+            <div className="p-5 space-y-4">
+              <button
+                onClick={() => dispatch(toggleFontFaceScreen())}
+                className="flex items-center gap-2 text-qm-green mb-4 hover:opacity-80 transition-opacity"
               >
-                In the name of Allah, the Entirely Merciful, the Especially Merciful.
-              </p>
-            )}
-          </div>
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+                <span className="text-sm font-medium">Select Font Face</span>
+              </button>
+
+              <div className="flex gap-2 mb-4">
+                <button
+                  onClick={() => dispatch(setFontVariant("Uthmani"))}
+                  className={`flex-1 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    fontVariant === "Uthmani"
+                      ? "bg-qm-green text-white"
+                      : "bg-qm-bg text-qm-text hover:bg-qm-bg/80"
+                  }`}
+                >
+                  Uthmani
+                </button>
+                <button
+                  onClick={() => dispatch(setFontVariant("Indopak"))}
+                  className={`flex-1 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    fontVariant === "Indopak"
+                      ? "bg-qm-green text-white"
+                      : "bg-qm-bg text-qm-text hover:bg-qm-bg/80"
+                  }`}
+                >
+                  Indopak
+                </button>
+              </div>
+
+              <div className="space-y-2">
+                {fontsForVariant.map((font) => (
+                  <button
+                    key={font.value}
+                    onClick={() => {
+                      dispatch(setArabicFontFamily(font.value));
+                    }}
+                    className="w-full flex items-center justify-between px-4 py-3 rounded-lg hover:bg-qm-bg transition-colors text-left"
+                  >
+                    <span className="text-sm text-qm-text">{font.label}</span>
+                    {arabicFontFamily === font.value && (
+                      <svg className="h-5 w-5 text-qm-green" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
+                      </svg>
+                    )}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </aside>
     </>
