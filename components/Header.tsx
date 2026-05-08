@@ -13,7 +13,7 @@ export default function Header() {
       <div className="flex items-center gap-2.5">
         <button
           onClick={() => dispatch(toggleSurahSidebar())}
-          className="flex h-[34px] w-[34px] min-w-[34px] items-center justify-center text-qm-icon transition-all active:scale-90 laptop:hidden"
+          className="flex h-[34px] w-[34px] min-w-[34px] items-center justify-center text-qm-green transition-all active:scale-90 laptop:hidden"
           aria-label="Open Surah list"
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
