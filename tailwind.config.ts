@@ -8,6 +8,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      screens: {
+        tablet: "640px",
+      },
       colors: {
         // Exact colors from reference site (dark mode CSS variables)
         "qm-bg": "#0d0d0d",        // --color-primary-background: 0 0% 5%
