@@ -10,6 +10,7 @@ const config: Config = {
     extend: {
       screens: {
         tablet: "640px",
+        laptop: "1024px",
       },
       colors: {
         // Exact colors from reference site (dark mode CSS variables)

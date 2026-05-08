@@ -43,8 +43,8 @@ export default function IconSidebar() {
   const isQuran = pathname.startsWith("/surahs");
 
   return (
-    <aside className="hidden lg:flex fixed bottom-0 left-0 top-0 z-40 w-[60px] flex-col items-center bg-qm-sidebar border-r border-qm-border">
-      <Link href="/surahs/1" className="flex h-[60px] w-full items-center justify-center border-b border-qm-border" title="Quran Web">
+    <nav className="fixed bottom-0 left-0 z-40 h-[60px] w-full bg-qm-sidebar border-t border-qm-border laptop:top-0 laptop:bottom-auto laptop:h-full laptop:w-[60px] laptop:border-r laptop:border-t-0 flex items-center">
+      <Link href="/surahs/1" className="max-laptop:hidden laptop:flex laptop:h-[60px] laptop:w-full items-center justify-center border-b border-qm-border" title="Quran Web">
         <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M6.99183 0H29.0082C32.8696 0 36 3.13043 36 6.99183V29.0082C36 32.8696 32.8696 36 29.0082 36H6.99183C3.13043 36 0 32.8696 0 29.0082V6.99183C0 3.13043 3.13043 0 6.99183 0Z" className="fill-qm-green"/>
           <path d="M26.0687 24.5654V28.2374C26.0688 28.3545 26.0389 28.4696 25.9818 28.5717C25.9247 28.6739 25.8424 28.7597 25.7427 28.821C25.6429 28.8822 25.5292 28.9168 25.4122 28.9215C25.2953 28.9263 25.1791 28.9009 25.0748 28.8479L18 25.2596" stroke="#E2E2E2" strokeWidth="0.782609"/>
@@ -56,7 +56,7 @@ export default function IconSidebar() {
         </svg>
       </Link>
 
-      <div className="flex flex-1 items-center justify-between gap-6 px-3 py-4 max-lg:w-full lg:flex-col lg:justify-center lg:gap-6">
+      <div className="flex h-full w-full items-center justify-around gap-6 px-4 tablet:gap-8 laptop:h-[calc(100%-60px)] laptop:flex-col laptop:justify-center laptop:gap-6 laptop:px-0">
         <NavBtn href="/" title="Home" active={pathname === "/"}>
           <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
             <path d="M9.23051 2.58494L2.87801 7.67243C2.16301 8.24076 1.70467 9.44163 1.86051 10.34L3.07968 17.6366C3.29968 18.9383 4.54634 19.9924 5.86634 19.9924H16.133C17.4438 19.9924 18.6997 18.9291 18.9197 17.6366L20.1388 10.34C20.2855 9.44163 19.8272 8.24076 19.1213 7.67243L12.7688 2.59411C11.788 1.80578 10.2022 1.80577 9.23051 2.58494Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -97,6 +97,6 @@ export default function IconSidebar() {
           </svg>
         </NavBtn>
       </div>
-    </aside>
+    </nav>
   );
 }
