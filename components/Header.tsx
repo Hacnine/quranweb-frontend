@@ -2,15 +2,26 @@
 
 import Link from "next/link";
 import { useAppDispatch } from "@/store/hooks";
-import { toggleSidebar } from "@/store/settingsSlice";
+import { toggleSidebar, toggleSurahSidebar } from "@/store/settingsSlice";
 
 export default function Header() {
   const dispatch = useAppDispatch();
 
   return (
     <header className="fixed left-0 lg:left-[60px] right-0 top-0 z-50 flex h-[60px] items-center justify-between border-b border-qm-border bg-qm-bg px-4 tablet:px-6">
-      {/* Left: site name + tagline */}
+      {/* Left: hamburger menu (mobile) + site name */}
       <div className="flex items-center gap-2.5">
+        <button
+          onClick={() => dispatch(toggleSurahSidebar())}
+          className="lg:hidden flex h-[34px] w-[34px] min-w-[34px] cursor-pointer items-center justify-center rounded-sm text-qm-green transition-all active:scale-90"
+          aria-label="Menu"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
         <Link href="/surahs/1" className="hidden items-center gap-2.5 sm:flex">
           <div className="space-y-[2px] text-left">
             <p className="mt-[2px] text-xl font-bold leading-none text-qm-text">

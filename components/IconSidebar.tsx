@@ -43,7 +43,7 @@ export default function IconSidebar() {
   const isQuran = pathname.startsWith("/surahs");
 
   return (
-    <aside className="fixed bottom-0 left-0 top-0 z-40 flex w-[60px] flex-col items-center bg-qm-sidebar border-r border-qm-border">
+    <aside className="hidden lg:flex fixed bottom-0 left-0 top-0 z-40 w-[60px] flex-col items-center bg-qm-sidebar border-r border-qm-border">
       <Link href="/surahs/1" className="flex h-[60px] w-full items-center justify-center border-b border-qm-border" title="Quran Web">
         <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M6.99183 0H29.0082C32.8696 0 36 3.13043 36 6.99183V29.0082C36 32.8696 32.8696 36 29.0082 36H6.99183C3.13043 36 0 32.8696 0 29.0082V6.99183C0 3.13043 3.13043 0 6.99183 0Z" className="fill-qm-green"/>

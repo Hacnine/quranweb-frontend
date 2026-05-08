@@ -16,9 +16,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     <div className="min-h-screen bg-qm-bg">
       {/* Fixed top header */}
       <Header />
-      {/* Fixed left icon sidebar */}
+      {/* Fixed left icon sidebar - hidden on mobile */}
       <IconSidebar />
-      {/* Page content — padded top for header, padded left for icon sidebar on desktop */}
+      {/* Page content — padded top for header, padded left for icon sidebar on desktop only */}
       <div className="pt-[60px] lg:pl-[60px]">
         {children}
       </div>
