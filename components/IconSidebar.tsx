@@ -43,9 +43,9 @@ export default function IconSidebar() {
   const isQuran = pathname.startsWith("/surahs");
 
   return (
-    <aside className="fixed bottom-0 left-0 top-[60px] z-40 flex w-[60px] flex-col items-center bg-qm-sidebar py-3">
-      {/* Logo */}
-      <Link href="/surahs/1" className="py-3 max-lg:hidden" title="Quran Web">
+    <aside className="fixed bottom-0 left-0 top-0 z-40 flex w-[60px] flex-col items-center bg-qm-sidebar border-r border-qm-border">
+      {/* Logo — occupies same height as header (60px) */}
+      <Link href="/surahs/1" className="flex h-[60px] w-full items-center justify-center border-b border-qm-border" title="Quran Web">
         <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M6.99183 0H29.0082C32.8696 0 36 3.13043 36 6.99183V29.0082C36 32.8696 32.8696 36 29.0082 36H6.99183C3.13043 36 0 32.8696 0 29.0082V6.99183C0 3.13043 3.13043 0 6.99183 0Z" className="fill-qm-green"/>
           <path d="M26.0687 24.5654V28.2374C26.0688 28.3545 26.0389 28.4696 25.9818 28.5717C25.9247 28.6739 25.8424 28.7597 25.7427 28.821C25.6429 28.8822 25.5292 28.9168 25.4122 28.9215C25.2953 28.9263 25.1791 28.9009 25.0748 28.8479L18 25.2596" stroke="#E2E2E2" strokeWidth="0.782609"/>
@@ -58,7 +58,7 @@ export default function IconSidebar() {
       </Link>
 
       {/* Nav items */}
-      <div className="flex items-center justify-between gap-6 lg:h-[calc(100%-110px)] lg:flex-col lg:justify-center lg:gap-6">
+      <div className="flex flex-1 items-center justify-between gap-6 px-3 py-4 max-lg:w-full lg:flex-col lg:justify-center lg:gap-6">
         {/* Home */}
         <NavBtn href="/" title="Home" active={pathname === "/"}>
           <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">

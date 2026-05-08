@@ -41,7 +41,7 @@ export default async function SurahPage({ params }: PageProps) {
       <SurahSidebar surahs={surahs} currentId={surahNumber} />
 
       {/* Main reader area — offset by surah sidebar width (300px) on desktop */}
-      <main className="flex-1 overflow-y-auto lg:ml-[300px]">
+      <main className="flex-1 overflow-y-auto bg-qm-bg lg:ml-[300px]">
         {/* Surah header — matches reference design */}
         {(() => {
           const surahMeta = surahs.find((s) => parseInt(s.index, 10) === surahNumber);
