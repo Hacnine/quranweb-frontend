@@ -25,14 +25,14 @@ export default function SettingsPanel() {
       {/* Backdrop */}
       {sidebarOpen && (
         <div
-          className="fixed bottom-0 left-0 right-0 top-12 z-40 bg-black/40 transition-opacity"
+          className="fixed bottom-0 left-0 right-0 top-[60px] z-40 bg-black/40 transition-opacity"
           onClick={() => dispatch(closeSidebar())}
         />
       )}
 
       {/* Panel */}
       <aside
-        className={`fixed bottom-0 right-0 top-12 z-50 w-80 max-w-[85vw] transform bg-qm-sidebar shadow-2xl transition-transform duration-300 ${
+        className={`fixed bottom-0 right-0 top-[60px] z-50 w-80 max-w-[85vw] transform bg-qm-sidebar shadow-2xl transition-transform duration-300 ${
           sidebarOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >

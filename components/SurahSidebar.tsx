@@ -12,10 +12,14 @@ interface Props {
   currentId?: number;
 }
 
+const TABS = ["Surah", "Juz", "Page"] as const;
+type Tab = (typeof TABS)[number];
+
 export default function SurahSidebar({ surahs, currentId }: Props) {
   const dispatch = useAppDispatch();
   const surahSidebarOpen = useAppSelector((s) => s.settings.surahSidebarOpen);
   const [search, setSearch] = useState("");
+  const [activeTab, setActiveTab] = useState<Tab>("Surah");
 
   const filtered = surahs.filter(
     (s) =>
@@ -28,7 +32,7 @@ export default function SurahSidebar({ surahs, currentId }: Props) {
       {/* Mobile backdrop */}
       {surahSidebarOpen && (
         <div
-          className="fixed bottom-0 left-0 right-0 top-12 z-30 bg-black/60 lg:hidden"
+          className="fixed bottom-0 left-0 right-0 top-[60px] z-30 bg-black/60 lg:hidden"
           onClick={() => dispatch(closeSurahSidebar())}
         />
       )}
@@ -36,120 +40,110 @@ export default function SurahSidebar({ surahs, currentId }: Props) {
       {/* Sidebar panel */}
       <aside
         className={`
-          fixed bottom-0 top-12 z-30 flex w-72 flex-col border-r border-qm-border bg-qm-sidebar
+          fixed bottom-0 top-[60px] z-30 flex w-[300px] flex-col border-r border-qm-border bg-qm-sidebar
           transition-transform duration-300
-          lg:left-14 lg:translate-x-0
-          ${surahSidebarOpen ? "left-14 translate-x-0" : "-translate-x-full left-14"}
+          lg:left-[60px] lg:translate-x-0
+          ${surahSidebarOpen ? "left-[60px] translate-x-0" : "-translate-x-full left-[60px]"}
         `}
       >
-        {/* Header — "Surah | Juz | Page" tabs */}
-        <div className="flex items-center justify-between border-b border-qm-border px-3 py-2">
-          <div className="flex gap-1">
-            {["Surah", "Juz", "Page"].map((tab) => (
+        {/* Tabs — Surah / Juz / Page with sliding pill */}
+        <div className="px-[26px] pt-6 pb-4">
+          <div className="relative isolate flex min-h-10 items-center rounded-full border-4 border-qm-sidebar bg-qm-sidebar">
+            {TABS.map((tab) => (
               <button
                 key={tab}
-                className={`rounded px-3 py-1 text-xs font-semibold transition-colors ${
-                  tab === "Surah"
-                    ? "bg-qm-green/20 text-qm-green"
-                    : "text-qm-muted hover:text-qm-text"
+                onClick={() => setActiveTab(tab)}
+                className={`z-10 h-full w-full py-2 text-sm font-semibold transition-colors ${
+                  activeTab === tab ? "text-qm-text" : "text-qm-muted"
                 }`}
               >
                 {tab}
               </button>
             ))}
+            {/* Sliding indicator */}
+            <div
+              className="absolute h-full rounded-full bg-qm-bg transition-transform duration-300 ease-in-out"
+              style={{
+                width: "calc(33.333333%)",
+                transform: `translateX(${TABS.indexOf(activeTab) * 100}%)`,
+              }}
+            />
           </div>
-          <button
-            onClick={() => dispatch(closeSurahSidebar())}
-            className="rounded p-1 text-qm-muted transition-colors hover:text-white lg:hidden"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-4 w-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
         </div>
 
         {/* Search */}
-        <div className="px-3 py-2">
-          <div className="flex items-center gap-2 rounded-lg border border-qm-border bg-qm-bg px-3 py-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-4 w-4 shrink-0 text-qm-muted"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-              />
+        <div className="mb-4 px-[26px]">
+          <div className="flex h-10 items-center gap-3 rounded-full border border-qm-border bg-qm-sidebar px-3 text-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none" className="shrink-0 text-qm-muted">
+              <path d="M18.3789 18.3721L14.7539 14.7471M16.7122 10.0387C16.7122 13.7206 13.7275 16.7054 10.0456 16.7054C6.36367 16.7054 3.37891 13.7206 3.37891 10.0387C3.37891 6.35684 6.36367 3.37207 10.0456 3.37207C13.7275 3.37207 16.7122 6.35684 16.7122 10.0387Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search Surah"
-              className="w-full bg-transparent text-sm text-qm-text placeholder-qm-muted outline-none"
+              className="w-full bg-transparent font-light text-qm-text outline-none placeholder:text-qm-muted"
             />
           </div>
         </div>
 
         {/* Surah list */}
-        <div className="flex-1 overflow-y-auto scrollbar-thin">
+        <div className="flex-1 overflow-y-auto pb-4 scrollbar-thin">
           {filtered.map((surah) => {
             const num = parseInt(surah.index, 10);
             const isActive = currentId === num;
             const meaning = SURAH_MEANINGS[num] ?? surah.type;
 
             return (
-              <Link
-                key={surah.index}
-                href={`/surahs/${num}`}
-                onClick={() => dispatch(closeSurahSidebar())}
-                className={`flex items-center gap-3 px-3 py-2.5 transition-colors hover:bg-white/5 ${
-                  isActive ? "bg-qm-green-dim/50 border-l-2 border-qm-green" : "border-l-2 border-transparent"
-                }`}
-              >
-                {/* Number badge — circle */}
-                <span
-                  className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-bold ${
+              <div key={surah.index} className="block pb-2 px-[26px]">
+                <Link
+                  href={`/surahs/${num}`}
+                  onClick={() => dispatch(closeSurahSidebar())}
+                  className={`group/card flex h-[76px] w-full cursor-pointer select-none items-center justify-between gap-5 rounded-md border px-4 transition-colors hover:bg-qm-green/[0.07] ${
                     isActive
-                      ? "bg-qm-green text-black"
-                      : "border border-qm-border text-qm-muted"
+                      ? "border-qm-green/30 bg-qm-green/[0.07]"
+                      : "border-qm-border"
                   }`}
                 >
-                  {num}
-                </span>
-
-                {/* Name + meaning */}
-                <div className="min-w-0 flex-1">
-                  <p
-                    className={`truncate text-sm font-semibold ${
-                      isActive ? "text-qm-green" : "text-qm-text"
+                  {/* Diamond number badge */}
+                  <div
+                    className={`flex size-8 min-h-8 min-w-8 rotate-45 items-center justify-center rounded-[6px] transition-colors ${
+                      isActive
+                        ? "bg-qm-green"
+                        : "bg-qm-card group-hover/card:bg-qm-green"
                     }`}
                   >
-                    {surah.title}
-                  </p>
-                  <p className="truncate text-xs text-qm-muted">{meaning}</p>
-                </div>
+                    <span
+                      className={`-rotate-45 text-[11px] font-medium transition-colors ${
+                        isActive
+                          ? "text-qm-fg"
+                          : "text-qm-muted group-hover/card:text-qm-fg"
+                      }`}
+                    >
+                      {num}
+                    </span>
+                  </div>
 
-                {/* Arabic name */}
-                <span
-                  className="shrink-0 text-sm text-qm-muted"
-                  style={{ fontFamily: "Amiri, serif" }}
-                  dir="rtl"
-                >
-                  {surah.titleAr}
-                </span>
-              </Link>
+                  {/* Name + meaning */}
+                  <div className="flex-grow text-start">
+                    <p className="line-clamp-1 break-all text-sm font-medium text-qm-text">
+                      {surah.title}
+                    </p>
+                    <p className="line-clamp-1 break-all text-xs font-normal text-qm-muted">
+                      {meaning}
+                    </p>
+                  </div>
+
+                  {/* Arabic index numeral */}
+                  <span
+                    className="text-right text-lg text-qm-muted"
+                    style={{ fontFamily: "Amiri, serif" }}
+                    dir="rtl"
+                  >
+                    {surah.index}
+                  </span>
+                </Link>
+              </div>
             );
           })}
         </div>

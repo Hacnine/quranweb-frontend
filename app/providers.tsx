@@ -14,13 +14,13 @@ export function Providers({ children }: { children: React.ReactNode }) {
 export function AppShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex h-screen flex-col overflow-hidden bg-qm-bg">
-      {/* Fixed top header — h-12 = 48px */}
+      {/* Fixed top header — h-[60px] */}
       <Header />
       {/* Everything below the header */}
-      <div className="flex flex-1 overflow-hidden pt-12">
+      <div className="flex flex-1 overflow-hidden pt-[60px]">
         <IconSidebar />
-        {/* Main content area — pushed right of icon sidebar */}
-        <div className="flex flex-1 overflow-hidden pl-14">
+        {/* Main content area — pushed right of icon sidebar (60px) */}
+        <div className="flex flex-1 overflow-hidden pl-[60px]">
           {children}
         </div>
       </div>

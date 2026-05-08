@@ -15,15 +15,27 @@
     @apply bg-qm-bg text-qm-text;
   }
 
-  /* Thin scrollbar */
+  /* Thin scrollbar — matches reference (0.3rem wide, primary-color thumb) */
+  ::-webkit-scrollbar {
+    width: 0.3rem;
+    height: 0;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(65, 128, 56, 0.2);
+    border-radius: 9999px;
+    min-height: 2.75rem;
+  }
   .scrollbar-thin::-webkit-scrollbar {
-    width: 4px;
+    width: 0.3rem;
   }
   .scrollbar-thin::-webkit-scrollbar-track {
     background: transparent;
   }
   .scrollbar-thin::-webkit-scrollbar-thumb {
-    background: #2a2a38;
+    background-color: rgba(65, 128, 56, 0.2);
     border-radius: 9999px;
   }
 
