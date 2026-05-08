@@ -36,43 +36,36 @@ export default async function SurahPage({ params }: PageProps) {
   }));
 
   return (
-    <div className="flex h-full w-full overflow-hidden">
+    <div className="flex h-[calc(100vh-60px)] w-full overflow-hidden">
       {/* Surah list sidebar */}
       <SurahSidebar surahs={surahs} currentId={surahNumber} />
 
-      {/* Main reader area — shifted right of surah sidebar on desktop */}
-      <main className="flex-1 overflow-y-auto lg:ml-72">
+      {/* Main reader area — offset by surah sidebar width (300px) on desktop */}
+      <main className="flex-1 overflow-y-auto lg:ml-[300px]">
         {/* Surah header — matches reference design */}
         {(() => {
           const surahMeta = surahs.find((s) => parseInt(s.index, 10) === surahNumber);
           const place = surahMeta?.place === "Mecca" ? "Makkah" : surahMeta?.place === "Medina" ? "Madinah" : surahMeta?.place ?? "";
           return (
-            <div className="flex items-center gap-6 border-b border-qm-border bg-qm-bg px-6 py-6">
-              {/* Mosque illustration */}
-              <div className="hidden shrink-0 sm:block">
-                <div className="overflow-hidden rounded-xl border border-qm-border" style={{ width: 120, height: 80 }}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="/mosque.svg"
-                    alt="Mosque"
-                    className="h-full w-full object-cover"
-                  />
-                </div>
+            <div className="grid grid-cols-1 items-center px-[--padding-x] py-5 [--padding-x:15px] tablet:[--padding-x:24px] max-tablet:gap-y-6 tablet:grid-cols-3">
+              {/* Makkah image — left column, hidden on mobile */}
+              <div className="w-[140px] max-tablet:hidden">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/makkah.png"
+                  alt="makkah"
+                  width={376}
+                  height={254}
+                  className="w-full object-contain opacity-80"
+                />
               </div>
 
-              {/* Surah info */}
-              <div className="flex-1 text-center">
-                <h1 className="text-2xl font-bold text-qm-text">
+              {/* Surah info — center column */}
+              <div className="space-y-2 text-center">
+                <h1 className="text-lg font-semibold tablet:text-xl">
                   Surah {surah.name}
                 </h1>
-                <p
-                  className="mt-1 text-xl text-qm-text/70"
-                  dir="rtl"
-                  style={{ fontFamily: "Amiri, serif" }}
-                >
-                  {surahMeta?.titleAr ?? ""}
-                </p>
-                <p className="mt-1 text-sm text-qm-muted">
+                <p className="text-sm capitalize text-qm-muted tablet:text-base">
                   Ayah-{surah.count}, {place}
                 </p>
               </div>

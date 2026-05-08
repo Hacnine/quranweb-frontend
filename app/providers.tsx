@@ -13,16 +13,14 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex h-screen flex-col overflow-hidden bg-qm-bg">
-      {/* Fixed top header — h-[60px] */}
+    <div className="min-h-screen bg-qm-bg">
+      {/* Fixed top header */}
       <Header />
-      {/* Everything below the header */}
-      <div className="flex flex-1 overflow-hidden pt-[60px]">
-        <IconSidebar />
-        {/* Main content area — pushed right of icon sidebar (60px) */}
-        <div className="flex flex-1 overflow-hidden pl-[60px]">
-          {children}
-        </div>
+      {/* Fixed left icon sidebar */}
+      <IconSidebar />
+      {/* Page content — padded top for header, padded left for icon sidebar on desktop */}
+      <div className="pt-[60px] lg:pl-[60px]">
+        {children}
       </div>
       <SettingsPanel />
     </div>
