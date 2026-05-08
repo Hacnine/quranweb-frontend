@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useAppDispatch } from "@/store/hooks";
-import { toggleSidebar } from "@/store/settingsSlice";
+import { toggleSidebar, toggleSurahSidebar } from "@/store/settingsSlice";
 
 export default function Header() {
   const dispatch = useAppDispatch();
@@ -11,6 +11,17 @@ export default function Header() {
     <header className="fixed left-0 laptop:left-[60px] right-0 top-0 z-50 flex h-[60px] items-center justify-between border-b border-qm-border bg-qm-bg px-4 tablet:px-6">
       {/* Left: site name + tagline */}
       <div className="flex items-center gap-2.5">
+        <button
+          onClick={() => dispatch(toggleSurahSidebar())}
+          className="flex h-[34px] w-[34px] min-w-[34px] items-center justify-center text-qm-icon transition-all active:scale-90 laptop:hidden"
+          aria-label="Open Surah list"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path d="M2.25 5.25H15.75" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+            <path d="M2.25 9H15.75" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+            <path d="M2.25 12.75H15.75" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+          </svg>
+        </button>
         <Link href="/surahs/1" className="hidden items-center gap-2.5 sm:flex">
           <div className="space-y-[2px] text-left">
             <p className="mt-[2px] text-xl font-bold leading-none text-qm-text">
@@ -58,10 +69,8 @@ export default function Header() {
           className="flex h-[34px] w-[34px] min-w-[34px] cursor-pointer items-center justify-center rounded-full bg-qm-green/10 text-qm-green transition-all active:scale-90"
           aria-label="Settings"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
-            <path d="M2.25 5.25H15.75" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-            <path d="M2.25 9H15.75" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-            <path d="M2.25 12.75H15.75" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 19 18" fill="none">
+            <path d="M15.3953 6.91501C14.0378 6.91501 13.4828 5.95501 14.1578 4.77751C14.5478 4.09501 14.3153 3.22501 13.6328 2.83501L12.3353 2.09251C11.7428 1.74001 10.9778 1.95001 10.6253 2.54251L10.5428 2.68501C9.86781 3.86251 8.75781 3.86251 8.07531 2.68501L7.99281 2.54251C7.65531 1.95001 6.89031 1.74001 6.29781 2.09251L5.00031 2.83501C4.31781 3.22501 4.08531 4.10251 4.47531 4.78501C5.15781 5.95501 4.60281 6.91501 3.24531 6.91501C2.46531 6.91501 1.82031 7.55251 1.82031 8.34001V9.66001C1.82031 10.44 2.45781 11.085 3.24531 11.085C4.60281 11.085 5.15781 12.045 4.47531 13.2225C4.08531 13.905 4.31781 14.775 5.00031 15.165L6.29781 15.9075C6.89031 16.26 7.65531 16.05 8.00781 15.4575L8.09031 15.315C8.76531 14.1375 9.87531 14.1375 10.5578 15.315L10.6403 15.4575C10.9928 16.05 11.7578 16.26 12.3503 15.9075L13.6478 15.165C14.3303 14.775 14.5628 13.8975 14.1728 13.2225C13.4903 12.045 14.0453 11.085 15.4028 11.085C16.1828 11.085 16.8278 10.4475 16.8278 9.66001V8.34001C16.8203 7.56001 16.1828 6.91501 15.3953 6.91501ZM9.32031 11.4375C7.97781 11.4375 6.88281 10.3425 6.88281 9.00001C6.88281 7.65751 7.97781 6.56251 9.32031 6.56251C10.6628 6.56251 11.7578 7.65751 11.7578 9.00001C11.7578 10.3425 10.6628 11.4375 9.32031 11.4375Z" fill="currentColor"/>
           </svg>
         </button>
 
