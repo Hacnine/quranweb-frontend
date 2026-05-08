@@ -126,13 +126,6 @@ export default function SurahSidebar({ surahs, currentId }: Props) {
                     </p>
                   </div>
 
-                  <span
-                    className="text-right text-lg text-qm-muted"
-                    style={{ fontFamily: "Amiri, serif" }}
-                    dir="rtl"
-                  >
-                    {surah.index}
-                  </span>
                 </Link>
               </div>
             );
