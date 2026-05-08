@@ -31,17 +31,17 @@ export default function SurahSidebar({ surahs, currentId }: Props) {
     <>
       {surahSidebarOpen && (
         <div
-          className="fixed bottom-0 left-0 right-0 top-[60px] z-30 bg-black/60 lg:hidden"
+          className="fixed bottom-[60px] laptop:bottom-0 left-0 right-0 top-[60px] z-30 bg-black/60 laptop:hidden"
           onClick={() => dispatch(closeSurahSidebar())}
         />
       )}
 
       <aside
         className={`
-          fixed bottom-0 top-[60px] z-30 flex w-[300px] flex-col border-r border-qm-border bg-qm-bg
+          fixed top-[60px] bottom-[60px] laptop:bottom-0 z-30 flex w-[300px] flex-col border-r border-qm-border bg-qm-bg
           transition-transform duration-300
-          lg:left-[60px] lg:translate-x-0
-          ${surahSidebarOpen ? "left-[60px] translate-x-0" : "-translate-x-full left-[60px]"}
+          laptop:left-[60px] laptop:translate-x-0
+          ${surahSidebarOpen ? "left-0 translate-x-0" : "-translate-x-full left-0"}
         `}
       >
         <div className="px-[26px] pt-6 pb-4">
